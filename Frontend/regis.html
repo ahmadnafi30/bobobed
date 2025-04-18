@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bobobed Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="flex bg-white rounded-xl overflow-hidden shadow-lg max-w-[1700px] w-full h-[800px]">
+
+        <!--Left Image Panel -->
+        <div class="w-1/2 relative block">
+            <img src="./photo-1582719478250-c89cae4dc85b.jpeg" alt="Room" class="h-full w-full object-cover">
+            <div
+                class="absolute bottom-4 left-4 text-white text-sm font-light bg-black bg-opacity-50 px-2 py-1 rounded">
+                Balcon de Hesperia<br>Cordoba
+            </div>
+        </div>
+
+        <!--Right Form Panel -->
+        <div class="w-full  md:w-1/2 bg-gray-100 p-8 flex flex-col justify-center ">
+            <h1 class="text-6xl font-light text-center mb-6">bobobed</h1>
+            <div class="bg-white rounded-xl shadow p-6 ">
+                <div class="flex mb-4 border-b border-gray-300">
+                    <button class="w-1/2 text-center py-2 font-semibold border-b-2 border-black">Register</button>
+                    <button class="w-1/2 text-center py-2 text-gray-400" onclick="window.location.href='./login.html';">Login</button>
+                </div>
+
+                <form class="space-y-4">
+                    <div class="flex space-x-2">
+                        <input type="text" placeholder="First Name" class="w-1/2 px-3 py-2 border rounded bg-gray-100">
+                        <input type="text" placeholder="Last Name" class="w-1/2 px-3 py-2 border rounded bg-gray-100">
+                    </div>
+                    <input type="email" placeholder="Email" class="w-full px-3 py-2 border rounded bg-gray-100">
+                    <input type="password" placeholder="Password" class="w-full px-3 py-2 border rounded bg-gray-100">
+                    <input type="password" placeholder="Confirm Password"
+                        class="w-full px-3 py-2 border rounded bg-gray-100">
+                    <div class="flex items-center space-x-2">
+                        <div class="flex items-center border rounded bg-gray-100 px-3 py-2">
+                            <img src="https://flagcdn.com/w40/id.png" class="w-5 h-5 mr-2" alt="ID Flag">
+                            <span>+62</span>
+                        </div>
+                        <input type="tel" placeholder="821 2764 1983"
+                            class="flex-1 px-3 py-2 border rounded bg-gray-100">
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-blue-900 text-white font-semibold py-2 rounded hover:bg-blue-800">
+                        Register
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
