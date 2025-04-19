@@ -14,7 +14,7 @@ import (
 
 func main() {
 	// Koneksi ke database PostgreSQL
-	connStr := "host=localhost port=5432 user=postgres password=yourpassword dbname=bobobed sslmode=disable"
+	connStr := "host=localhost port=5432 user=postgres password=mypassword123 dbname=bobobed_db sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
