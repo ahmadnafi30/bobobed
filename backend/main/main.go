@@ -9,6 +9,7 @@ import (
 	"github.com/ahmadnafi30/bobobed/backend/internal/repository"
 	"github.com/ahmadnafi30/bobobed/backend/internal/service"
 	_ "github.com/lib/pq"
+	"github.com/rs/cors" // Import package CORS
 )
 
 func main() {
@@ -34,6 +35,14 @@ func main() {
 	http.HandleFunc("/register", userHandler.Register)
 	http.HandleFunc("/login", userHandler.Login)
 
-	log.Println("Server berjalan di http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"}, // Izinkan semua origin
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedHeaders: []string{"Content-Type", "Authorization"},
+	})
+
+	handler := c.Handler(http.DefaultServeMux)
+
+	// Jalankan server
+	log.Fatal(http.ListenAndServe(":8081", handler))
 }
