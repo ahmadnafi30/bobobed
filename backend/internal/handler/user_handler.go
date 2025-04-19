@@ -36,7 +36,8 @@ func (h *UserHandler) Register(w http.ResponseWriter, r *http.Request) {
 		FirstName: req.FirstName,
 		LastName:  req.LastName,
 		Email:     req.Email,
-		Password:  req.Password, // You should hash the password before saving
+		Password:  req.Password,
+		Phone:     req.Phone, // <-- Tambahan
 	}
 
 	// Call the Register service method

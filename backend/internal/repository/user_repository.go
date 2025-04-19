@@ -60,16 +60,15 @@ func (r *PostgresUserRepo) CreateUser(user *entity.User) error {
 		// Jika hasil query tidak mengembalikan error, berarti email sudah ada
 		return errors.New("email already exists")
 	}
-
-	// Jika error yang dikembalikan adalah sql.ErrNoRows, artinya email belum ada
 	if err != sql.ErrNoRows {
 		// Jika ada error lain, kembalikan error tersebut
 		return err
 	}
 
 	// Insert user baru
-	query := `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING id`
-	err = r.db.QueryRow(query, user.FirstName, user.LastName, user.Email, user.Password).Scan(&user.ID)
+	query := `INSERT INTO users (first_name, last_name, email, password, phone)
+	          VALUES ($1, $2, $3, $4, $5) RETURNING id`
+	err = r.db.QueryRow(query, user.FirstName, user.LastName, user.Email, user.Password, user.Phone).Scan(&user.ID)
 	if err != nil {
 		return err
 	}
@@ -78,9 +77,15 @@ func (r *PostgresUserRepo) CreateUser(user *entity.User) error {
 
 func (r *PostgresUserRepo) FindByEmail(email string) (*entity.User, error) {
 	var user entity.User
-	// SQL untuk mencari user berdasarkan email
-	query := `SELECT id, first_name, last_name, email, password FROM users WHERE email = $1`
-	err := r.db.QueryRow(query, email).Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.Password)
+	query := `SELECT id, first_name, last_name, email, password, phone FROM users WHERE email = $1`
+	err := r.db.QueryRow(query, email).Scan(
+		&user.ID,
+		&user.FirstName,
+		&user.LastName,
+		&user.Email,
+		&user.Password,
+		&user.Phone,
+	)
 	if err == sql.ErrNoRows {
 		return nil, errors.New("user not found")
 	}
