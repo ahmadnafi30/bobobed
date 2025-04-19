@@ -1,20 +1,39 @@
 package main
 
 import (
+	"database/sql"
+	"log"
 	"net/http"
 
 	"github.com/ahmadnafi30/bobobed/backend/internal/handler"
 	"github.com/ahmadnafi30/bobobed/backend/internal/repository"
 	"github.com/ahmadnafi30/bobobed/backend/internal/service"
+	_ "github.com/lib/pq"
 )
 
 func main() {
-	userRepo := repository.NewInMemoryUserRepo()
+	// Koneksi ke database PostgreSQL
+	connStr := "host=localhost port=5432 user=postgres password=yourpassword dbname=bobobed sslmode=disable"
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Verifikasi koneksi ke database
+	if err := db.Ping(); err != nil {
+		log.Fatal("Tidak bisa terhubung ke database: ", err)
+	}
+
+	// Membuat instance repository dan service
+	userRepo := repository.NewPostgresUserRepo(db)
 	userService := service.NewUserService(userRepo)
 	userHandler := handler.NewUserHandler(userService)
 
+	// Mengatur route HTTP
 	http.HandleFunc("/register", userHandler.Register)
 	http.HandleFunc("/login", userHandler.Login)
 
-	http.ListenAndServe(":8080", nil)
+	log.Println("Server berjalan di http://localhost:8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
