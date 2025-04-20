@@ -46,4 +46,3 @@ func main() {
 	// Jalankan server
 	log.Fatal(http.ListenAndServe(":8081", handler))
 }
-print

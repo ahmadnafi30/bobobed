@@ -1,5 +1,5 @@
 def print_hello():
-    print("hello"
+    print("hello")
 
 # Test function to capture printed output and compare it
 def test_print_hello(capsys):
